@@ -1,0 +1,9 @@
+BuiltinCommandsModule	whop.txt	/*BuiltinCommandsModule*
+Config	whop.txt	/*Config*
+ConfigModule	whop.txt	/*ConfigModule*
+Whop	whop.txt	/*Whop*
+whop	whop.txt	/*whop*
+whop.find_and_run_cmd()	whop.txt	/*whop.find_and_run_cmd()*
+whop.run_cmd()	whop.txt	/*whop.run_cmd()*
+whop.select()	whop.txt	/*whop.select()*
+whop.setup()	whop.txt	/*whop.setup()*

@@ -1,0 +1,14 @@
+rock_manifest = {
+   lua = {
+      ["nvim-web-devicons"] = {
+         ["hi-test.lua"] = "b57125254ab4424407e5c10d1d681bdb",
+         ["icons-default.lua"] = "899c0d66ee7f1271f2882c8c89adc04a",
+         ["icons-light.lua"] = "965d064b3a486a3ed7fa2d65ecee6348"
+      },
+      ["nvim-web-devicons.lua"] = "7eecaa245050286abf392086d4bf11c0"
+   },
+   ["nvim-web-devicons-0.100-1.rockspec"] = "4b4794801019ea94338242d19b0aa2ba",
+   plugin = {
+      ["nvim-web-devicons.vim"] = "a0890b3e5f21ca05fc40c8675a1ac428"
+   }
+}

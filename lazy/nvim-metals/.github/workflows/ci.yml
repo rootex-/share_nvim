@@ -1,0 +1,96 @@
+name: nvim-metals ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths-ignore:
+      - '**.txt'
+      - '**.md'
+
+jobs:
+  lint-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v4
+
+    - name: Setup selene
+      run: |
+        wget "https://github.com/Kampfkarren/selene/releases/download/$VERSION/selene-$VERSION-linux.zip"
+        echo "$SHA256_CHECKSUM  selene-$VERSION-linux.zip" > "selene-$VERSION-linux.zip.checksum"
+        sha256sum --check "selene-$VERSION-linux.zip.checksum"
+        unzip "selene-$VERSION-linux.zip"
+        install -Dp selene "$HOME/.local/bin/selene"
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      env:
+        VERSION: "0.26.1"
+        # shashum -a 256 selene-<version>-linux.zip
+        SHA256_CHECKSUM: "406697af6a13027a0f95fd65a790ca0b496a28ede4d7355f4b04ebf1d640134e"
+
+    - name: Run selene
+      run: make lint
+
+
+  format-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Run StyLua
+      uses: JohnnyMorganz/stylua-action@v4.0.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        version: 0.20.0
+        args: --check lua/
+
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        neovim_version: ['v0.10.0', 'nightly']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
+        with:
+          repository: "ckipp01/multiple-build-file-example"
+          path: "multiple-build-file-example"
+
+      - uses: actions/checkout@v4
+        with:
+          repository: "ckipp01/mill-minimal"
+          path: "mill-minimal"
+
+      - uses: actions/checkout@v4
+        with:
+          repository: "ckipp01/minimal-scala-cli-test"
+          path: "minimal-scala-cli-test"
+
+      - uses: coursier/setup-action@v1
+        with:
+          jvm: adoptium:17
+          apps: ""
+
+      - name: Setup neovim
+        uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.neovim_version }}
+
+      - name: Prepare plenary
+        run: |
+          git clone --depth 1 https://github.com/nvim-lua/plenary.nvim ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
+          ln -s $(pwd) ~/.local/share/nvim/site/pack/vendor/start
+
+      - name: Run setup tests
+        run: make test-setup
+
+      - name: Run tests
+        run: make test

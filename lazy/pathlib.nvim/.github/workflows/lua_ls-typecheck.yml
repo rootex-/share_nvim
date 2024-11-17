@@ -1,0 +1,49 @@
+name: lua_ls-typecheck
+on:
+  pull_request: ~
+  push:
+    branches:
+      - 'main'
+      - 'v*'
+
+jobs:
+  build:
+    name: Type Check Code Base
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Checkout dependency neodev
+        uses: actions/checkout@v3
+        with:
+          repository: "folke/neodev.nvim"
+          path: "deps/neodev.nvim"
+
+      - uses: leafo/gh-actions-lua@v9
+        with:
+          luaVersion: "5.1"
+      - uses: leafo/gh-actions-luarocks@v4
+
+      - name: install dependencies
+        run: |
+          luarocks init
+          luarocks config --scope project lua_version 5.1
+          luarocks install --only-deps ./pathlib.nvim-scm-1.rockspec
+
+      - name: Print Filetree
+        run: |
+          echo $PWD && ls -la && ls -la deps
+          ls -la lua_modules
+          ls -la lua_modules/*
+          ls -la lua_modules/share/*
+          ls -la lua_modules/share/lua/*
+
+      - name: Type Check Code Base
+        uses: mrcjkb/lua-typecheck-action@v0
+        with:
+          configpath: .github/workflows/.luarc.json
+          directories: |
+            lua
+            spec
