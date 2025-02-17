@@ -1,0 +1,8 @@
+doc/tags
+
+scratch/dummy_ignored.txt
+
+nvim-test
+stylua
+lua-language-server-*
+luals_check
