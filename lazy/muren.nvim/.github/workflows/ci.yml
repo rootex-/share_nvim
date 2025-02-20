@@ -1,0 +1,26 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  unit_tests:
+    name: unit tests
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.rev }}
+      - name: Prepare
+        run: |
+          mkdir -p rtps
+          git clone --depth 1 https://github.com/nvim-lua/plenary.nvim rtps/plenary.nvim
+      - name: Run tests
+        run: |
+            make test

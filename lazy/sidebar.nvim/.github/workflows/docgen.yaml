@@ -1,0 +1,37 @@
+name: Generate Documentation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+      - feat/docs
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    name: pandoc to vimdoc
+    steps:
+      - uses: actions/checkout@v2
+      - name: panvimdoc
+        uses: kdheepak/panvimdoc@main
+        with:
+          vimdoc: sidebar
+          # Show Last Change on header
+          description: ""
+          # Input file
+          pandoc: "doc/general.md"
+          # Show Table of Content
+          toc: true
+          version: "NVIM v0.6.0"
+      - uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          author: sidebar-nvim-bot <sidebar-nvim-bot@users.noreply.github.com>
+          commit-message: "docs: autogenerate"
+          branch: "docs/auto-update"
+          delete-branch: true
+          base: "dev"
+          title: "[docs]: Update documentation"
+          body: |
+            Automated changes by the [docgen workflow](https://github.com/sidebar-nvim/sidebar.nvim/actions/workflows/docgen.yaml)

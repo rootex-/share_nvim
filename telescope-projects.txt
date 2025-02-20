@@ -1,0 +1,3 @@
+nvim=/Users/alexander/.config/nvim=w0=1=1740068805
+rust-snips=/Users/alexander/wrk/src/rust/rust-snips=w0=1=1739132984
+react-demo=/Users/alexander/wrk/src/js/react-demo=w0=1=1709484214

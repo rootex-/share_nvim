@@ -1,0 +1,61 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  unit_tests:
+    name: unit tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+            manager: sudo snap
+            packages: go
+          - os: ubuntu-22.04
+            url: https://github.com/neovim/neovim/releases/download/v0.10.2/nvim-linux64.tar.gz
+            manager: sudo snap
+            packages: go
+          - os: ubuntu-22.04
+            url: https://github.com/neovim/neovim/releases/download/v0.10.1/nvim-linux64.tar.gz
+            manager: sudo snap
+            packages: go
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "^1.23" # The Go version to download (if necessary) and use.
+      - run: date +%F > todays-date
+      - name: Restore cache for today's nightly.
+        uses: actions/cache@v2
+        with:
+          path: |
+            _neovim
+          key: ${{ runner.os }}-${{ matrix.url }}-${{ hashFiles('todays-date') }}
+
+      - name: Prepare
+        run: |
+          ${{ matrix.manager }} install --classic ${{ matrix.packages }}
+          test -d _neovim || {
+            mkdir -p _neovim
+            curl -sL ${{ matrix.url }} | tar xzf - --strip-components=1 -C "${PWD}/_neovim"
+          }
+          GO111MODULE=on go install golang.org/x/tools/gopls@latest
+          GO111MODULE=on go install mvdan.cc/gofumpt@latest
+          go install golang.org/x/tools/cmd/goimports@latest
+          go install golang.org/x/tools/cmd/gorename@latest
+          go install github.com/fatih/gomodifytags@latest
+          go install github.com/josharian/impl@latest
+          go install github.com/segmentio/golines@latest
+          mkdir -p ~/.local/share/nvim/site/pack/vendor/start
+          git clone --depth 1 https://github.com/nvim-lua/plenary.nvim ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
+          git clone --depth 1 https://github.com/neovim/nvim-lspconfig ~/.local/share/nvim/site/pack/vendor/start/nvim-lspconfig
+          git clone --depth 1 https://github.com/nvim-treesitter/nvim-treesitter ~/.local/share/nvim/site/pack/vendor/start/nvim-treesitter
+          ln -s $(pwd) ~/.local/share/nvim/site/pack/vendor/start
+      - name: Run tests
+        run: |
+          export PATH="${PWD}/_neovim/bin:${PATH}"
+          nvim --headless -u lua/tests/minimal.vim -i NONE -c "TSInstallSync go" -c "q"
+          make test

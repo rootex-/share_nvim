@@ -1,0 +1,59 @@
+rock_manifest = {
+   doc = {
+      ["fugit2.nvim.txt"] = "6067e8a32930c22c52a70ea0a8f53fab",
+      ["fugit2.txt"] = "d41d8cd98f00b204e9800998ecf8427e"
+   },
+   ftplugin = {
+      ["diff.vim"] = "343b5e9d332a3461217c699eb7d52a7a"
+   },
+   ["fugit2.nvim-0.2.1-1.rockspec"] = "fbc844b4c11465360e05330c78bbe69d",
+   lua = {
+      fugit2 = {
+         ["config.lua"] = "d507d575eb87168e42677ff321cbbedf",
+         core = {
+            ["blame.lua"] = "4eda0c872f37091555f732cd932750dd",
+            ["fzf.lua"] = "79b9085cccb91b074119e22e49da730e",
+            ["git_gpg.lua"] = "b6b7566c94af39437f044b3f7e3f6f91",
+            ["gpgme.lua"] = "a26ae426baaa434afb58b5febafd6e64",
+            ["matrix.lua"] = "206fa83965dbe155bc77f01811f83236",
+            ["pendulum.lua"] = "e111c532091f6a03d4ecec927da90cef",
+            ["stat.lua"] = "834893089ef1915af357456fad724520"
+         },
+         ["diff.lua"] = "19b55c03d353e54339e00cf11ae34a63",
+         ["git2.lua"] = "557ac3049961e423b31c95d189e97cf5",
+         ["git_absorb.lua"] = "45d0f77de76bc9798a654f85fac581bd",
+         hl = {
+            ["color.lua"] = "534e4a6dc7f5b3587deac37edcfd459c"
+         },
+         ["init.lua"] = "81b3cdf1ceef7806c0f5d9f2abb60497",
+         ["libgit2.lua"] = "cb634ce8632a34ef02b132be63a174ec",
+         ["notifier.lua"] = "7899bdb6e8f2f6ae7cb667767dff38b7",
+         ["utils.lua"] = "ca0da98909cc648f01e9fe571fc2f6f2",
+         view = {
+            ["colors.lua"] = "588169ef6bdd1e8a4dffae00ce2404dc",
+            components = {
+               ["base_tree_view.lua"] = "1bfdc624df750850a1f8b7423745732a",
+               ["branch_tree_view.lua"] = "195f76db8089ae529ca25ab9aa73d8bd",
+               ["commit_log_view.lua"] = "c825a4282d8b876977dcb9c62dc2b437",
+               ["diff_view.lua"] = "eb1d6224a9b0e483261a796bf363dc6a",
+               ["file_tree_view.lua"] = "6cf0767241328356a67f0b4be2c657a7",
+               ["menus.lua"] = "ee055fa1fc9ed99dc08ce57d19109a40",
+               ["patch_view.lua"] = "a400f07e46b8123b0f5d2efe24fc80dd",
+               ["source_tree_view.lua"] = "fd8930b96b15bc073dda2f18eddd8101"
+            },
+            ["git_base_view.lua"] = "418c0c03d51a80afd90e36eadfd73b2e",
+            ["git_blame.lua"] = "b79dc2e1d0678e0cc7f43312bea0a4d1",
+            ["git_blame_file.lua"] = "0b02cc08b25705778e04240ce2c17142",
+            ["git_diff.lua"] = "167f96d5ada1d040c8bbe40e2941d807",
+            ["git_graph.lua"] = "86d84f4dca5f0e294188c4caa3772671",
+            ["git_pick.lua"] = "00e40f22467f14c17ac0676d890f226b",
+            ["git_rebase.lua"] = "690f3e9a4c9400f9a11e97900fe1ead5",
+            ["git_status.lua"] = "1acd34a43788abb36bb11e029ff6d245",
+            ["ui.lua"] = "ee507ce24a89d73d20332451c019f5e4"
+         }
+      }
+   },
+   plugin = {
+      ["fugit2.lua"] = "f61ab83be0feceaa3e84a55142f4955a"
+   }
+}

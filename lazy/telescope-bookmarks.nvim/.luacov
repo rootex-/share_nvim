@@ -1,0 +1,13 @@
+return {
+  modules = {
+    ["browser_bookmarks.*"] = "lua",
+    ["browser_bookmarks.browsers.*"] = "lua",
+    ["browser_bookmarks.parser.*"] = "lua",
+    ["telescope._extensions.bookmarks"] = "lua/telescope/_extensions/bookmarks.lua",
+  },
+
+  -- This is set to get the true coverage of the entire project.
+  includeuntestedfiles = true,
+}
+
+-- vim: ft=lua
