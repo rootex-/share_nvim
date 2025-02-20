@@ -1,0 +1,17 @@
+M.linters	lint.txt	/*M.linters*
+M.linters_by_ft	lint.txt	/*M.linters_by_ft*
+lint	lint.txt	/*lint*
+lint.LintProc	lint.txt	/*lint.LintProc*
+lint.Linter	lint.txt	/*lint.Linter*
+lint.Parser	lint.txt	/*lint.Parser*
+lint.get_namespace	lint.txt	/*lint.get_namespace*
+lint.get_running	lint.txt	/*lint.get_running*
+lint.lint	lint.txt	/*lint.lint*
+lint.parse	lint.txt	/*lint.parse*
+lint.parser	lint.txt	/*lint.parser*
+lint.parser.accumulate_chunks	lint.txt	/*lint.parser.accumulate_chunks*
+lint.parser.from_errorformat	lint.txt	/*lint.parser.from_errorformat*
+lint.parser.from_pattern	lint.txt	/*lint.parser.from_pattern*
+lint.parser.split	lint.txt	/*lint.parser.split*
+lint.toc	lint.txt	/*lint.toc*
+lint.try_lint	lint.txt	/*lint.try_lint*
